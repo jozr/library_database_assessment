@@ -18,14 +18,11 @@ def menu
     if main_choice == 'a'
       puts "PRESS 'aa' TO ADD AN AUTHOR"
       puts "PRESS 'la' TO LIST AUTHORS"
-      puts "PRESS 'at' TO ADD AN AUTHOR TO A TITLE"
       a_choice = gets.chomp
       if a_choice == 'aa'
         add_author
       elsif a_choice == 'la'
         list_authors
-      elsif a_choice == 'at'
-        add_author_to_title
       else
         puts "ENTER A VALID KEY"
       end
@@ -42,6 +39,12 @@ def menu
         puts "ENTER A VALID KEY"
       end
 
+    elsif main_choice == 'c'
+      puts "PRESS 'ac' TO ADD A CONTRIBUTION"
+      c_choice = gets.chomp
+      if c_choice == 'ac'
+        add_contribution
+      end
     elsif main_choice == 'x'
       exit
     end
@@ -63,7 +66,7 @@ def list_authors
   end
 end
 
-def add_author_to_title
+def add_contribution
   list_authors
   puts "ENTER AN AUTHOR ID"
   author_input = gets.chomp
