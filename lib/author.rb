@@ -26,4 +26,11 @@ class Author
   def ==(another_name)
     self.name == another_name.name && self.id == another_name.id
   end
+
+  def remove(name_input)
+    result = DB.exec("SELECT * FROM authors WHERE name = '#{name_input}'")
+    a_id = result.first['id'].to_i
+    DB.exec("DELETE FROM books WHERE author_id = #{a_id}")
+    DB.exec("DELETE FROM authors WHERE name = '#{name_input}'")
+  end
 end

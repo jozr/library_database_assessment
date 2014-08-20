@@ -1,11 +1,10 @@
 require 'rspec_helper'
-require 'book'
 
 describe Book do
 
   it 'is initialized with a name' do
-    test_book = Book.new({'author_id' => 1, 'title_id' => 3})
-    test_book.should be_instance_of Book
+    book = Book.new({'author_id' => 1, 'title_id' => 3})
+    book.should be_instance_of Book
   end
 
   it 'lets you save multiple books to the database' do
