@@ -26,16 +26,16 @@ describe Title do
     title.save
     author = Author.new({'name' => 'Jane'})
     author.save
-    book = Book.new({'author_id' => author.id, 'title_id' => title.id})
-    book.save
+    contribution = Contribution.new({'author_id' => author.id, 'title_id' => title.id})
+    contribution.save
     title_two = Title.new({'name' => 'More stuff'})
     title_two.save
     author_two = Author.new({'name' => 'Joe'})
     author_two.save
-    book_two = Book.new({'author_id' => author_two.id, 'title_id' => title_two.id})
-    book_two.save
+    contribution_two = Contribution.new({'author_id' => author_two.id, 'title_id' => title_two.id})
+    contribution_two.save
     title.remove('Stuff')
     Title.all.should eq [title_two]
-    Book.all.should eq [book_two]
+    Contribution.all.should eq [contribution_two]
   end
 end

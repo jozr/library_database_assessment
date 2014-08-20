@@ -30,7 +30,7 @@ class Title
   def remove(name_input)
     result = DB.exec("SELECT * FROM titles WHERE name = '#{name_input}'")
     t_id = result.first['id'].to_i
-    DB.exec("DELETE FROM books WHERE title_id = #{t_id}")
+    DB.exec("DELETE FROM contributions WHERE title_id = #{t_id}")
     DB.exec("DELETE FROM titles WHERE name = '#{name_input}'")
   end
 end
