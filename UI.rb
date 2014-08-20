@@ -25,6 +25,17 @@ def menu
       else
         puts "ENTER A VALID KEY"
       end
+    elsif main_choice == 't'
+      puts "PRESS 'at' TO ADD A TITLE"
+      puts "PRESS 'lt' TO LIST TITLES"
+      a_choice = gets.chomp
+      if a_choice == 'at'
+        add_title
+      elsif a_choice == 'lt'
+        list_titles
+      else
+        puts "ENTER A VALID KEY"
+      end
     elsif main_choice == 'x'
       exit
     end
@@ -43,6 +54,21 @@ def list_authors
   puts '********** AUTHORS **********'
   Author.all.each do |author|
     puts author.name
+  end
+end
+
+def add_title
+  puts "ENTER TITLE NAME"
+  name_input = gets.chomp
+  title = Title.new({'name' => name_input})
+  title.save
+  puts "'#{name_input}' HAS BEEN ADDED."
+end
+
+def list_titles
+  puts '********** TITLES **********'
+  Title.all.each do |title|
+    puts title.name
   end
 end
 
