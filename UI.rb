@@ -6,23 +6,27 @@ require './lib/title.rb'
 DB = PG.connect({:dbname => 'library'})
 
 def welcome
-  puts '********************* LIBRARY *********************'
+  puts '********************** LIBRARY **********************'
   menu
 end
 
 def menu
-  choice = nil
-  until choice == 'e'
-    puts "Press 'aa' to add an author"
-    puts "Press 'x' to exit"
-    choice = gets.chomp
-    case choice
-    when 'aa'
-      add_author
-    when 'x'
+  loop do
+    puts "PRESS (a)uthors, (t)itles, (c)ontributions OR e(x)it"
+    main_choice = gets.chomp
+    if main_choice == 'a'
+      puts "PRESS 'aa' TO ADD AN AUTHOR"
+      puts "PRESS 'la' TO LIST AUTHORS"
+      a_choice = gets.chomp
+      if a_choice == 'aa'
+        add_author
+      elsif a_choice == 'la'
+        list_authors
+      else
+        puts "ENTER A VALID KEY"
+      end
+    elsif main_choice == 'x'
       exit
-    else
-      puts 'CHOOSE AN OPTION ABOVE'
     end
   end
 end
@@ -32,7 +36,14 @@ def add_author
   name_input = gets.chomp
   author = Author.new({'name' => name_input})
   author.save
-  puts "'#{name_input}' has been added."
+  puts "'#{name_input}' HAS BEEN ADDED."
+end
+
+def list_authors
+  puts '********** AUTHORS **********'
+  Author.all.each do |author|
+    puts author.name
+  end
 end
 
 welcome

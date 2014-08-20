@@ -18,9 +18,9 @@ class Author
     results.each do |result|
       name = result['name']
       id = result['id'].to_i
-      authors << Title.new({'name' => name, 'id' => id})
+      authors << Author.new({'name' => name, 'id' => id})
     end
-  authors
+    authors
   end
 
   def ==(another_name)

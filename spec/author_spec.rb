@@ -38,4 +38,18 @@ describe Author do
     Author.all.should eq [author_two]
     Contribution.all.should eq [contribution_two]
   end
+
+  it 'searches for titles by author' do
+    author = Author.new({'name' => 'Marjane Satrapi'})
+    author.save
+    title = Title.new({'name' => 'Persepolis 1'})
+    title.save
+    title_two = Title.new({'name' => 'Persepolis 2'})
+    title_two.save
+    contribution = Contribution.new({'author_id' => author.id, 'title_id' => title.id})
+    contribution.save
+    contribution_two = Contribution.new({'author_id' => author.id, 'title_id' => title_two.id})
+    contribution_two.save
+    author.search('Marjane Satrapi').should eq ['Persepolis 1', 'Persepolis 2']
+  end
 end
