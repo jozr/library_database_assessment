@@ -50,6 +50,7 @@ def menu
       puts "PRESS 'ac' TO ADD A CONTRIBUTION"
       puts "PRESS 'lt' TO LIST ALL TITLES AN AUTHOR CONTRIBUTED TO"
       puts "PRESS 'la' TO LIST ALL AUTHORS WHO CONTRIBUTED TO A TITLE"
+      puts "PRESS 'lc' TO LIST CONTRIBUTIONS"
       c_choice = gets.chomp
       if c_choice == 'ac'
         add_contribution
@@ -57,6 +58,8 @@ def menu
         list_titles_by_author
       elsif c_choice == 'la'
         list_authors_by_title
+      elsif c_choice == 'lc'
+        list_contributions
       end
 
     elsif main_choice == 'x'
@@ -88,6 +91,29 @@ def delete_author
   puts "DELETED"
 end
 
+def add_title
+  puts "ENTER TITLE NAME"
+  name_input = gets.chomp
+  title = Title.new({'name' => name_input})
+  title.save
+  puts "'#{name_input}' HAS BEEN ADDED."
+end
+
+def list_titles
+  puts '********** TITLES **********'
+  Title.all.each do |title|
+    puts "#{title.id}: #{title.name}"
+  end
+end
+
+def delete_title
+  list_titles
+  puts "ENTER A TITLE ID"
+  title_input = gets.chomp
+  Title.remove(title_input)
+  puts "DELETED"
+end
+
 def add_contribution
   list_authors
   puts "ENTER AN AUTHOR ID"
@@ -115,27 +141,13 @@ def list_authors_by_title
   puts Title.search(title_input)
 end
 
-def add_title
-  puts "ENTER TITLE NAME"
-  name_input = gets.chomp
-  title = Title.new({'name' => name_input})
-  title.save
-  puts "'#{name_input}' HAS BEEN ADDED."
-end
-
-def list_titles
-  puts '********** TITLES **********'
-  Title.all.each do |title|
-    puts "#{title.id}: #{title.name}"
-  end
-end
-
-def delete_title
-  list_titles
-  puts "ENTER A TITLE ID"
-  title_input = gets.chomp
-  Title.remove(title_input)
-  puts "DELETED"
-end
+# def list_contributions
+#   results = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id);")
+#   names = []
+#   results.each do |result|
+#     names << result['name']
+#   end
+#   names
+# end
 
 welcome

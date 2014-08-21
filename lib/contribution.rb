@@ -29,7 +29,7 @@ class Contribution
     self.author_id == another_name.author_id && self.title_id == another_name.title_id
   end
 
-  def remove(author_name_input, title_name_input)
+  def self.remove(author_name_input, title_name_input)
     a_result = DB.exec("SELECT * FROM authors WHERE name = '#{author_name_input}'")
     a_id = a_result.first['id'].to_i
     t_result = DB.exec("SELECT * FROM titles WHERE name = '#{title_name_input}'")
