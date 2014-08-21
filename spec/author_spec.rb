@@ -50,6 +50,6 @@ describe Author do
     contribution.save
     contribution_two = Contribution.new({'author_id' => author.id, 'title_id' => title_two.id})
     contribution_two.save
-    Author.search('Marjane Satrapi').should eq ['Persepolis 1', 'Persepolis 2']
+    Author.search(author.id).should eq ['Persepolis 1', 'Persepolis 2']
   end
 end

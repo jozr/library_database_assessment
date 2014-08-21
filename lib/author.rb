@@ -34,25 +34,12 @@ class Author
     DB.exec("DELETE FROM authors WHERE name = '#{name_input}'")
   end
 
-  def self.search(author_input)
-    a_id_result = DB.exec("SELECT * FROM authors WHERE name = '#{author_input}'")
-    a_id = a_id_result.first['id'].to_i
-    c_results = DB.exec("SELECT * FROM contributions WHERE author_id = #{a_id}")
-    title_ids = []
-    c_results.each do |c_result|
-      t_id = c_result['title_id']
-      title_ids << t_id
+  def self.search(author_id_input)
+    results = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id) WHERE authors.id = #{author_id_input};")
+    names = []
+    results.each do |result|
+      names << result['name']
     end
-
-    titles = []
-    title_ids.each do |title_id|
-      titles << DB.exec("SELECT * FROM titles WHERE id = #{title_id}")
-    end
-    title_names = []
-    titles.each do |title|
-      title_name = title.first['name']
-      title_names << title_name
-    end
-  title_names
+    names
   end
 end

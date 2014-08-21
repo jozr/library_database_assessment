@@ -85,12 +85,20 @@ def add_contribution
   puts "CONTRIBUTION ADDED"
 end
 
+def list_titles_by_author
+  list_authors
+  puts "ENTER AN AUTHOR ID"
+  author_input = gets.chomp
+  puts "*** CONTRIBUTING TITLE(S) ***"
+  puts Author.search(author_input)
+end
+
 def list_authors_by_title
   list_titles
   puts "ENTER A TITLE ID"
-  author_input = gets.chomp
+  title_input = gets.chomp
   puts "*** CONTRIBUTING AUTHOR(S) ***"
-  puts Title.search(author_input)
+  puts Title.search(title_input)
 end
 
 def add_title
