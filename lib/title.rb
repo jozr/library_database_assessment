@@ -1,5 +1,3 @@
-require 'pry'
-
 class Title
 
   attr_reader :name, :id
@@ -36,25 +34,13 @@ class Title
     DB.exec("DELETE FROM titles WHERE name = '#{name_input}'")
   end
 
-  def search(title_input)
-    t_id_result = DB.exec("SELECT * FROM titles WHERE name = '#{title_input}'")
-    t_id = t_id_result.first['id'].to_i
-    c_results = DB.exec("SELECT * FROM contributions WHERE title_id = #{t_id}")
-    author_ids = []
-    c_results.each do |c_result|
-      a_id = c_result['author_id']
-      author_ids << a_id
+  def self.search(title_id_input)
+    results = DB.exec("SELECT authors.name FROM authors JOIN contributions ON (contributions.author_id = authors.id) JOIN titles ON (contributions.title_id = titles.id) WHERE titles.id = #{title_id_input};")
+    names = []
+    results.each do |result|
+      names << result['name']
     end
-
-    authors = []
-    author_ids.each do |author_id|
-      authors << DB.exec("SELECT * FROM authors WHERE id = #{author_id}")
-    end
-    author_names = []
-    authors.each do |author|
-      author_name = author.first['name']
-      author_names << author_name
-    end
-  author_names
+    names
   end
+
 end

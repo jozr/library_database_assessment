@@ -34,7 +34,7 @@ class Author
     DB.exec("DELETE FROM authors WHERE name = '#{name_input}'")
   end
 
-  def search(author_input)
+  def self.search(author_input)
     a_id_result = DB.exec("SELECT * FROM authors WHERE name = '#{author_input}'")
     a_id = a_id_result.first['id'].to_i
     c_results = DB.exec("SELECT * FROM contributions WHERE author_id = #{a_id}")

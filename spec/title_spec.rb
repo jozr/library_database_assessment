@@ -50,6 +50,6 @@ describe Title do
     contribution.save
     contribution_two = Contribution.new({'author_id' => author_two.id, 'title_id' => title.id})
     contribution_two.save
-    title.search('The Best Graphic Novel').should eq ['Marjane Satrapi', 'Julie Doucet']
+    Title.search(title.id).should eq ['Marjane Satrapi', 'Julie Doucet']
   end
 end

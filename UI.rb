@@ -2,6 +2,7 @@ require 'pg'
 require './lib/author.rb'
 require './lib/contribution.rb'
 require './lib/title.rb'
+require 'pry'
 
 DB = PG.connect({:dbname => 'library'})
 
@@ -41,10 +42,17 @@ def menu
 
     elsif main_choice == 'c'
       puts "PRESS 'ac' TO ADD A CONTRIBUTION"
+      puts "PRESS 'lt' TO LIST ALL TITLES AN AUTHOR CONTRIBUTED TO"
+      puts "PRESS 'la' TO LIST ALL AUTHORS WHO CONTRIBUTED TO A TITLE"
       c_choice = gets.chomp
       if c_choice == 'ac'
         add_contribution
+      elsif c_choice == 'lt'
+        list_titles_by_author
+      elsif c_choice == 'la'
+        list_authors_by_title
       end
+
     elsif main_choice == 'x'
       exit
     end
@@ -75,6 +83,14 @@ def add_contribution
   title_input = gets.chomp
   DB.exec("INSERT INTO contributions (author_id, title_id) VALUES (#{author_input}, #{title_input})")
   puts "CONTRIBUTION ADDED"
+end
+
+def list_authors_by_title
+  list_titles
+  puts "ENTER A TITLE ID"
+  author_input = gets.chomp
+  puts "*** CONTRIBUTING AUTHOR(S) ***"
+  puts Title.search(author_input)
 end
 
 def add_title
