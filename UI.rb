@@ -19,11 +19,14 @@ def menu
     if main_choice == 'a'
       puts "PRESS 'aa' TO ADD AN AUTHOR"
       puts "PRESS 'la' TO LIST AUTHORS"
+      puts "PRESS 'da' TO DELETE AN AUTHOR"
       a_choice = gets.chomp
       if a_choice == 'aa'
         add_author
       elsif a_choice == 'la'
         list_authors
+      elsif a_choice == 'da'
+        delete_author
       else
         puts "ENTER A VALID KEY"
       end
@@ -72,6 +75,14 @@ def list_authors
   Author.all.each do |author|
     puts "#{author.id}: #{author.name}"
   end
+end
+
+def delete_author
+  list_authors
+  puts "ENTER AN AUTHOR ID"
+  author_input = gets.chomp
+  Author.remove(author_input)
+  puts "DELETED"
 end
 
 def add_contribution

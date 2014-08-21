@@ -34,7 +34,7 @@ describe Author do
     author_two.save
     contribution_two = Contribution.new({'author_id' => author_two.id, 'title_id' => title_two.id})
     contribution_two.save
-    author.remove('Jane')
+    Author.remove(author.id)
     Author.all.should eq [author_two]
     Contribution.all.should eq [contribution_two]
   end

@@ -27,11 +27,11 @@ class Author
     self.name == another_name.name && self.id == another_name.id
   end
 
-  def remove(name_input)
-    result = DB.exec("SELECT * FROM authors WHERE name = '#{name_input}'")
-    a_id = result.first['id'].to_i
-    DB.exec("DELETE FROM contributions WHERE author_id = #{a_id}")
-    DB.exec("DELETE FROM authors WHERE name = '#{name_input}'")
+  def self.remove(id_input)
+    # result = DB.exec("SELECT * FROM authors WHERE name = '#{name_input}'")
+    # a_id = result.first['id'].to_i
+    DB.exec("DELETE FROM contributions WHERE author_id = #{id_input}")
+    DB.exec("DELETE FROM authors WHERE id = '#{id_input}'")
   end
 
   def self.search(author_id_input)
