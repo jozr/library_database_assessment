@@ -27,11 +27,9 @@ class Title
     self.name == another_name.name && self.id == another_name.id
   end
 
-  def remove(name_input)
-    result = DB.exec("SELECT * FROM titles WHERE name = '#{name_input}'")
-    t_id = result.first['id'].to_i
-    DB.exec("DELETE FROM contributions WHERE title_id = #{t_id}")
-    DB.exec("DELETE FROM titles WHERE name = '#{name_input}'")
+  def self.remove(id_input)
+    DB.exec("DELETE FROM contributions WHERE title_id = #{id_input}")
+    DB.exec("DELETE FROM titles WHERE id = '#{id_input}'")
   end
 
   def self.search(title_id_input)

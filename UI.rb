@@ -34,11 +34,14 @@ def menu
     elsif main_choice == 't'
       puts "PRESS 'at' TO ADD A TITLE"
       puts "PRESS 'lt' TO LIST TITLES"
+      puts "PRESS 'dt' TO DELETE A TITLE"
       a_choice = gets.chomp
       if a_choice == 'at'
         add_title
       elsif a_choice == 'lt'
         list_titles
+      elsif a_choice == 'dt'
+        delete_title
       else
         puts "ENTER A VALID KEY"
       end
@@ -125,6 +128,14 @@ def list_titles
   Title.all.each do |title|
     puts "#{title.id}: #{title.name}"
   end
+end
+
+def delete_title
+  list_titles
+  puts "ENTER A TITLE ID"
+  title_input = gets.chomp
+  Title.remove(title_input)
+  puts "DELETED"
 end
 
 welcome

@@ -34,7 +34,7 @@ describe Title do
     author_two.save
     contribution_two = Contribution.new({'author_id' => author_two.id, 'title_id' => title_two.id})
     contribution_two.save
-    title.remove('Stuff')
+    Title.remove(title.id)
     Title.all.should eq [title_two]
     Contribution.all.should eq [contribution_two]
   end
