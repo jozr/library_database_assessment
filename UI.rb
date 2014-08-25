@@ -47,13 +47,15 @@ def menu
       end
 
     elsif main_choice == 'c'
-      puts "PRESS 'ac' TO ADD A CONTRIBUTION"
+      puts "PRESS 'ac' TO ADD A CONTRIBUTION OR 'dc' TO DELETE A CONTRIBUTION"
       puts "PRESS 'lt' TO LIST ALL TITLES AN AUTHOR CONTRIBUTED TO"
       puts "PRESS 'la' TO LIST ALL AUTHORS WHO CONTRIBUTED TO A TITLE"
       puts "PRESS 'lc' TO LIST CONTRIBUTIONS"
       c_choice = gets.chomp
       if c_choice == 'ac'
         add_contribution
+      elsif c_choice == 'dc'
+        remove_contribution
       elsif c_choice == 'lt'
         list_titles_by_author
       elsif c_choice == 'la'
@@ -145,8 +147,18 @@ def list_contributions
   titles = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id);")
   authors = DB.exec("SELECT authors.name FROM authors JOIN contributions ON (contributions.author_id = authors.id) JOIN titles ON (contributions.title_id = titles.id);")
   titles.zip(authors).each do |title, author|
-    puts "#{author['name']}: #{title['name']}"
+    puts "#{author['name']} - #{title['name']}"
   end
+end
+
+def remove_contribution
+  list_contributions
+  puts "ENTER THE AUTHOR NAME"
+  author_input = gets.chomp
+  puts "ENTER THE TITLE"
+  title_input = gets.chomp
+  Contribution.remove('#{author_input}', '#{title_input}')
+  puts "CONTRIBUTION DELETED"
 end
 
 welcome

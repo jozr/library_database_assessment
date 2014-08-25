@@ -30,10 +30,10 @@ class Contribution
   end
 
   def self.remove(author_name_input, title_name_input)
-    a_result = DB.exec("SELECT * FROM authors WHERE name = '#{author_name_input}'")
-    a_id = a_result.first['id'].to_i
-    t_result = DB.exec("SELECT * FROM titles WHERE name = '#{title_name_input}'")
-    t_id = a_result.first['id'].to_i
+    author = DB.exec("SELECT authors.id FROM authors WHERE name = '#{author_name_input}';")
+    title = DB.exec("SELECT titles.id FROM titles WHERE name = '#{title_name_input}';")
+    a_id = author.first['id'].to_i
+    t_id = title.first['id'].to_i
     DB.exec("DELETE FROM contributions WHERE title_id = #{t_id} AND author_id = #{a_id}")
   end
 end

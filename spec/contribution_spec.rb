@@ -22,18 +22,12 @@ describe Contribution do
   end
 
   it 'deletes specific contributions by author and title' do
-    title = Title.new({'name' => 'Cookbook'})
+    title = Title.new({'name' => 'Cookbook', 'id' => 3})
     title.save
-    author = Author.new({'name' => 'Jane'})
+    author = Author.new({'name' => 'Jane', 'id' => 5})
     author.save
     contribution = Contribution.new({'author_id' => author.id, 'title_id' => title.id})
-    title_two = Title.new({'name' => 'Favorite Tea'})
-    title_two.save
-    author_two = Author.new({'name' => 'Earl Grey'})
-    author_two.save
-    contribution_two = Contribution.new({'author_id' => author_two.id, 'title_id' => title_two.id})
-    contribution_two.save
-    contribution.remove('Jane', 'Cookbook')
-    Contribution.all.should eq [contribution_two]
+    Contribution.remove('Jane', 'Cookbook')
+    Contribution.all.should eq []
   end
 end
