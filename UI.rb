@@ -141,13 +141,12 @@ def list_authors_by_title
   puts Title.search(title_input)
 end
 
-# def list_contributions
-#   results = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id);")
-#   names = []
-#   results.each do |result|
-#     names << result['name']
-#   end
-#   names
-# end
+def list_contributions
+  titles = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id);")
+  authors = DB.exec("SELECT authors.name FROM authors JOIN contributions ON (contributions.author_id = authors.id) JOIN titles ON (contributions.title_id = titles.id);")
+  titles.zip(authors).each do |title, author|
+    puts "#{author['name']}: #{title['name']}"
+  end
+end
 
 welcome
