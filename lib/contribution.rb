@@ -1,3 +1,4 @@
+require 'pry'
 class Contribution
 
   attr_reader :title_id, :author_id, :id
@@ -29,11 +30,7 @@ class Contribution
     self.author_id == another_name.author_id && self.title_id == another_name.title_id
   end
 
-  def self.remove(author_name_input, title_name_input)
-    author = DB.exec("SELECT authors.id FROM authors WHERE name = '#{author_name_input}';")
-    title = DB.exec("SELECT titles.id FROM titles WHERE name = '#{title_name_input}';")
-    a_id = author.first['id'].to_i
-    t_id = title.first['id'].to_i
-    DB.exec("DELETE FROM contributions WHERE title_id = #{t_id} AND author_id = #{a_id}")
+  def self.remove(id_input)
+    DB.exec("DELETE FROM contributions WHERE id = #{id_input}")
   end
 end

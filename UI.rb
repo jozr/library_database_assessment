@@ -144,20 +144,19 @@ def list_authors_by_title
 end
 
 def list_contributions
-  titles = DB.exec("SELECT titles.name FROM titles JOIN contributions ON (contributions.title_id = titles.id) JOIN authors ON (contributions.author_id = authors.id);")
-  authors = DB.exec("SELECT authors.name FROM authors JOIN contributions ON (contributions.author_id = authors.id) JOIN titles ON (contributions.title_id = titles.id);")
-  titles.zip(authors).each do |title, author|
-    puts "#{author['name']} - #{title['name']}"
+  contributions = Contribution.all
+  contributions.each do |contribution|
+    author = DB.exec("SELECT * FROM authors WHERE id = #{contribution.author_id}")
+    title = DB.exec("SELECT * FROM titles WHERE id = #{contribution.title_id}")
+    puts "#{contribution.id}: #{author.first['name']} - #{title.first['name']}"
   end
 end
 
 def remove_contribution
   list_contributions
-  puts "ENTER THE AUTHOR NAME"
-  author_input = gets.chomp
-  puts "ENTER THE TITLE"
-  title_input = gets.chomp
-  Contribution.remove('#{author_input}', '#{title_input}')
+  puts "ENTER THE CONTRIBUTION ID"
+  input_id = gets.chomp
+  Contribution.remove(input_id)
   puts "CONTRIBUTION DELETED"
 end
 
