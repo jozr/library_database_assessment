@@ -113,7 +113,7 @@ def delete_title
   puts "ENTER A TITLE ID"
   title_input = gets.chomp
   Title.remove(title_input)
-  puts "DELETED"
+  puts "TITLE DELETED"
 end
 
 def add_contribution
