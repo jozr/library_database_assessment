@@ -13,7 +13,7 @@ Ruby
 
 Clone the repository using $ git clone<br>
 Create according database and tables<br>
-Use program in terminal through command 'ruby UI.rb'<br>
+Use program in terminal through command $ ruby UI.rb<br>
 Have fun!
 
 ##Liscense:
